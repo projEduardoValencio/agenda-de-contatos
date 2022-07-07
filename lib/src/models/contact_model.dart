@@ -7,6 +7,13 @@ class Contact {
   late String phone;
   late String img;
 
+  Contact({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.img,
+  });
+
   Contact.fromMap(Map map) {
     id = map[DataBaseColumns.idColumn];
     name = map[DataBaseColumns.nameColumn];
