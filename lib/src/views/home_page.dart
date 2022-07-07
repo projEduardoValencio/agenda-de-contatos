@@ -1,5 +1,6 @@
 import 'package:agenda_de_contatos/src/helpers/contact_helper.dart';
 import 'package:agenda_de_contatos/src/models/contact_model.dart';
+import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,28 +13,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //VARIAVEIS====================================================================
   ContatctHelper cHelper = ContatctHelper();
+  late List<Contact> contacts;
 
   //OVERRIDES===================================================================
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // cHelper.saveContact(
-    //   Contact(
-    //     name: "Leonardo",
-    //     email: "leonardo@gmail.com",
-    //     phone: "14 5555 5555",
-    //     img: "leo.image.png",
-    //   ),
-    // );
-    cHelper.getAllContacts().then((value) => print(value));
+    //Carregar a lista de contatos
+    cHelper.getAllContacts().then((value) => contacts = value!);
   }
 
   //BUILDER=====================================================================
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Contatos"),
+          backgroundColor: Colors.red,
+          centerTitle: true,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(
+            Icons.add,
+          ),
+          backgroundColor: Colors.red,
+        ),
+        body: ListView.builder(
+          itemCount: contacts.length,
+          itemBuilder: (context, index) {
+            return contactCard(context, index);
+          },
+          padding: EdgeInsets.all(8.0),
+        ),
+      ),
     );
   }
 }
