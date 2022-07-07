@@ -78,4 +78,10 @@ class ContatctHelper {
       return null;
     }
   }
+
+  Future<int> deleteContact(int id) async {
+    Database dbContact = await db;
+    return await dbContact.delete(DataBaseColumns.contactTable,
+        where: "${DataBaseColumns.idColumn} = ?", whereArgs: [id]);
+  }
 }
