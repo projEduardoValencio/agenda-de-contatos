@@ -90,4 +90,21 @@ class ContatctHelper {
     return await dbContact.update(DataBaseColumns.contactTable, contact.toMap(),
         where: "${DataBaseColumns.idColumn} = ?", whereArgs: [contact.id]);
   }
+
+  Future<List<Contact>?> getAllContacts() async {
+    Database dbContact = await db;
+    //Carregando uma lista de mapas
+    List listMap = await dbContact
+        .rawQuery("SELECT * FROM ${DataBaseColumns.contactTable}");
+    List<Contact>? listContact;
+    //Para cada mapa na listMap inserir como um contato na nova listContact
+    for (Map m in listMap) {
+      listMap.add(Contact.fromMap(m));
+    }
+    //verificar se esta vazia
+    if (listContact == null) {
+      return null;
+    }
+    return listContact;
+  }
 }
