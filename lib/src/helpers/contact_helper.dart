@@ -54,4 +54,28 @@ class ContatctHelper {
         await dbContact.insert(DataBaseColumns.contactTable, contact.toMap());
     return contact;
   }
+
+  Future<Contact?> getContact(int id) async {
+    Database dbContact = await db;
+    //Buscando no banco o contato com o id
+    List<Map> maps = await dbContact.query(
+      DataBaseColumns.contactTable,
+      columns: [
+        DataBaseColumns.idColumn,
+        DataBaseColumns.nameColumn,
+        DataBaseColumns.emailColumn,
+        DataBaseColumns.phoneColumn,
+        DataBaseColumns.imgColumn,
+      ],
+      where: "${DataBaseColumns.idColumn} = ?",
+      whereArgs: [id],
+    );
+    //Se encontrar algum contato passar pela função frommap e retornar o contato
+    if (maps.length > 0) {
+      return Contact.fromMap(maps.first);
+    } else {
+      //Caso contrario retorne null
+      return null;
+    }
+  }
 }
