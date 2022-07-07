@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    cHelper.getAllContacts();
+    cHelper.getAllContacts().then((value) => print(value));
   }
 
   //BUILDER=====================================================================
