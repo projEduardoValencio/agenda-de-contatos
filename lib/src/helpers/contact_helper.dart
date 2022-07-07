@@ -84,4 +84,10 @@ class ContatctHelper {
     return await dbContact.delete(DataBaseColumns.contactTable,
         where: "${DataBaseColumns.idColumn} = ?", whereArgs: [id]);
   }
+
+  Future<int> updateContact(Contact contact) async {
+    Database dbContact = await db;
+    return await dbContact.update(DataBaseColumns.contactTable, contact.toMap(),
+        where: "${DataBaseColumns.idColumn} = ?", whereArgs: [contact.id]);
+  }
 }
