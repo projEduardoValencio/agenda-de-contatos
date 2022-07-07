@@ -107,4 +107,15 @@ class ContatctHelper {
     }
     return listContact;
   }
+
+  Future<int> getNumberOfContacts() async {
+    Database dbContact = await db;
+    int? n = Sqflite.firstIntValue(await dbContact
+        .rawQuery("SELECT COUNT(*) FROM ${DataBaseColumns.contactTable}"));
+    if (n == null) {
+      return 0;
+    } else {
+      return n;
+    }
+  }
 }
