@@ -1,3 +1,4 @@
+import 'package:agenda_de_contatos/src/models/contact_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -43,5 +44,14 @@ class ContatctHelper {
       await db.execute(
           "CREATE TABLE ${DataBaseColumns.contactTable}(${DataBaseColumns.idColumn} INTEGER PRIMARY KEY, ${DataBaseColumns.nameColumn} TEXT, ${DataBaseColumns.emailColumn} TEXT, ${DataBaseColumns.phoneColumn} TEXT, ${DataBaseColumns.imgColumn} TEXT)");
     });
+  }
+
+  Future<Contact> saveContact(Contact contact) async {
+    //abrindo o banco de dados
+    Database dbContact = await db;
+    //salvando o contato
+    contact.id =
+        await dbContact.insert(DataBaseColumns.contactTable, contact.toMap());
+    return contact;
   }
 }
