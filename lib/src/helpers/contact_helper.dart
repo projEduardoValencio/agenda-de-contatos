@@ -118,4 +118,9 @@ class ContatctHelper {
       return n;
     }
   }
+
+  Future<void> closeDb() async {
+    Database dbContact = await db;
+    dbContact.close();
+  }
 }
