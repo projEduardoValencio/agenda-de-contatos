@@ -52,13 +52,14 @@ class ContatctHelper {
     //salvando o contato
     contact.id =
         await dbContact.insert(DataBaseColumns.contactTable, contact.toMap());
+
     return contact;
   }
 
   Future<Contact?> getContact(int id) async {
     Database dbContact = await db;
     //Buscando no banco o contato com o id
-    List<Map> maps = await dbContact.query(
+    List<Map<String, dynamic>> maps = await dbContact.query(
       DataBaseColumns.contactTable,
       columns: [
         DataBaseColumns.idColumn,
@@ -94,15 +95,16 @@ class ContatctHelper {
   Future<List<Contact>?> getAllContacts() async {
     Database dbContact = await db;
     //Carregando uma lista de mapas
-    List listMap = await dbContact
+    List<Map<String, dynamic>> listMap = await dbContact
         .rawQuery("SELECT * FROM ${DataBaseColumns.contactTable}");
-    List<Contact>? listContact;
+
+    List<Contact> listContact = [];
     //Para cada mapa na listMap inserir como um contato na nova listContact
-    for (Map m in listMap) {
-      listMap.add(Contact.fromMap(m));
+    for (Map<String, dynamic> m in listMap) {
+      listContact.add(Contact.fromMap(m));
     }
     //verificar se esta vazia
-    if (listContact == null) {
+    if (listContact.isEmpty) {
       return null;
     }
     return listContact;
