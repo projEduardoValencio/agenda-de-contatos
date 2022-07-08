@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         body: ListView.builder(
           itemCount: contacts.length,
           itemBuilder: (context, index) {
-            return contactCard(context, index);
+            return contactCard(context, index, contacts);
           },
           padding: EdgeInsets.all(8.0),
         ),
