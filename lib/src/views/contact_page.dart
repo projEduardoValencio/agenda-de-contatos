@@ -25,6 +25,10 @@ class _ContactPageState extends State<ContactPage> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
 
+  final _nameFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _phoneFocus = FocusNode();
+
   //OVERRIDE==================================================================
   @override
   void initState() {
@@ -55,7 +59,7 @@ class _ContactPageState extends State<ContactPage> {
           backgroundColor: Colors.red,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => saveContact(),
           child: Icon(Icons.save),
           backgroundColor: Colors.red,
         ),
@@ -70,6 +74,7 @@ class _ContactPageState extends State<ContactPage> {
               SizedBox(height: 15),
               //NOME
               TextField(
+                focusNode: _nameFocus,
                 controller: _nameController,
                 decoration: InputDecoration(
                   labelText: "Nome",
@@ -80,9 +85,13 @@ class _ContactPageState extends State<ContactPage> {
                     _editedContact.name = text;
                   });
                 },
+                onSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(_emailFocus);
+                },
               ),
               //EMAIL
               TextField(
+                focusNode: _emailFocus,
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: "Email",
@@ -93,9 +102,13 @@ class _ContactPageState extends State<ContactPage> {
 
                   _editedContact.email = text;
                 },
+                onSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(_phoneFocus);
+                },
               ),
               //PHONE
               TextField(
+                focusNode: _phoneFocus,
                 controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: "Phone",
@@ -106,6 +119,7 @@ class _ContactPageState extends State<ContactPage> {
 
                   _editedContact.phone = text;
                 },
+                onSubmitted: (_) => saveContact(),
               ),
             ],
           ),
@@ -138,6 +152,14 @@ class _ContactPageState extends State<ContactPage> {
       return AssetImage(PersonalPath.person);
     } else {
       return FileImage(File(_editedContact.img));
+    }
+  }
+
+  saveContact() {
+    if (_editedContact.name.isNotEmpty && _editedContact.name != null) {
+      Navigator.pop(context, _editedContact);
+    } else {
+      FocusScope.of(context).requestFocus(_nameFocus);
     }
   }
 }

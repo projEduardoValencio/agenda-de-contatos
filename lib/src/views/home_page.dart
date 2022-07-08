@@ -87,7 +87,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   //METODOS=====================================================================
-  void showContactPage(
+  Future<void> loadAndSetState() async {
+    List<Contact> l = await cHelper.getAllContacts() ?? [];
+    setState(() {
+      contacts = l;
+    });
+  }
+
+  Future<void> showContactPage(
       {required BuildContext context, Contact? contact}) async {
     final recContact = await Navigator.push(
       context,
@@ -98,8 +105,12 @@ class _HomePageState extends State<HomePage> {
     if (recContact != null) {
       if (contact != null) {
         await cHelper.updateContact(recContact);
-        loadContacts();
+        loadAndSetState();
+      } else {
+        await cHelper.saveContact(recContact);
+        loadAndSetState();
       }
     }
+    setState(() {});
   }
 }
