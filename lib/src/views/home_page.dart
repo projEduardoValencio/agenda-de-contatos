@@ -17,10 +17,14 @@ class _HomePageState extends State<HomePage> {
 
   //OVERRIDES===================================================================
   @override
-  void initState() async {
+  void initState() {
     // TODO: implement initState
     super.initState();
     //Carregar a lista de contatos
+    loadContacts();
+  }
+
+  Future loadContacts() async {
     await cHelper.getAllContacts().then((value) => contacts = value!);
   }
 
@@ -41,14 +45,18 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: Colors.red,
         ),
-        body: ListView.builder(
-          itemCount: contacts.length,
-          itemBuilder: (context, index) {
-            return contactCard(context, index, contacts);
-          },
-          padding: EdgeInsets.all(8.0),
-        ),
+        body: listContactBuilder(),
       ),
+    );
+  }
+
+  ListView listContactBuilder() {
+    return ListView.builder(
+      itemCount: contacts.length,
+      itemBuilder: (context, index) {
+        return contactCard(context, index, contacts);
+      },
+      padding: EdgeInsets.all(8.0),
     );
   }
 }
