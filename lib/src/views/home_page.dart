@@ -24,8 +24,10 @@ class _HomePageState extends State<HomePage> {
     loadContacts();
   }
 
+  //METODOS=====================================================================
   Future loadContacts() async {
-    await cHelper.getAllContacts().then((value) => contacts = value!);
+    return contacts = await cHelper.getAllContacts() ??
+        [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
   }
 
   //BUILDER=====================================================================
@@ -33,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: loadContacts(),
-      initialData: Center(child: CircularProgressIndicator()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return homePageWidget();
@@ -52,6 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   //WIDGETS====================================================================
   SafeArea homePageWidget() {
+    print("heelo ");
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
