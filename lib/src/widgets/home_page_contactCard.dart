@@ -1,4 +1,3 @@
-import 'dart:html' as h;
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import '../models/contact_model.dart';
 Widget contactCard(BuildContext context, int index, List<Contact> contacts) {
   return GestureDetector(
     child: Card(
+      elevation: 2.0,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
         child: Row(
@@ -21,6 +21,22 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts) {
                 image: DecorationImage(
                   image: imageIcon(contacts, index),
                 ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    contacts[index].name,
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(contacts[index].email)
+                ],
               ),
             ),
           ],

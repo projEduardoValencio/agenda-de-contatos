@@ -17,11 +17,11 @@ class _HomePageState extends State<HomePage> {
 
   //OVERRIDES===================================================================
   @override
-  void initState() {
+  void initState() async {
     // TODO: implement initState
     super.initState();
     //Carregar a lista de contatos
-    cHelper.getAllContacts().then((value) => contacts = value!);
+    await cHelper.getAllContacts().then((value) => contacts = value!);
   }
 
   //BUILDER=====================================================================
