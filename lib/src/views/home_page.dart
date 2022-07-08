@@ -31,7 +31,23 @@ class _HomePageState extends State<HomePage> {
   //BUILDER=====================================================================
   @override
   Widget build(BuildContext context) {
-    return homePageWidget();
+    return FutureBuilder(
+      future: loadContacts(),
+      initialData: Center(child: CircularProgressIndicator()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return homePageWidget();
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text("ERROR"),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 
   //WIDGETS====================================================================
