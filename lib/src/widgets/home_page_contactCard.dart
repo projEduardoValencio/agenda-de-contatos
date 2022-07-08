@@ -3,9 +3,16 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/contact_helper.dart';
 import '../models/contact_model.dart';
+import '../views/contact_page.dart';
 
-Widget contactCard(BuildContext context, int index, List<Contact> contacts) {
+//HELPPER INVOCATION============================================================
+ContatctHelper cHelper = ContatctHelper();
+
+//WIDGETS=======================================================================
+Widget contactCard(BuildContext context, int index, List<Contact> contacts,
+    Function showContactPage) {
   return GestureDetector(
     child: Card(
       elevation: 2.0,
@@ -14,12 +21,15 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts) {
         child: Row(
           children: [
             Container(
-              width: 80.0,
-              height: 80.0,
+              margin: EdgeInsets.all(6.0),
+              width: 50.0,
+              height: 50.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: imageIcon(contacts, index),
+                  image: _imageIcon(contacts, index),
+                  fit: BoxFit.none,
+                  scale: 11.0,
                 ),
               ),
             ),
@@ -43,10 +53,15 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts) {
         ),
       ),
     ),
+    onTap: () {
+      showContactPage(context: context, contact: contacts[index]);
+    },
   );
 }
 
-imageIcon(List<Contact> contacts, int index) {
+// METODOS======================================================================
+
+_imageIcon(List<Contact> contacts, int index) {
   if (contacts[index].img != null || contacts[index].img.isNotEmpty) {
     return AssetImage("assets/images/person.png");
   } else {

@@ -1,5 +1,6 @@
 import 'package:agenda_de_contatos/src/helpers/contact_helper.dart';
 import 'package:agenda_de_contatos/src/models/contact_model.dart';
+import 'package:agenda_de_contatos/src/views/contact_page.dart';
 import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     loadContacts();
   }
 
-  //METODOS=====================================================================
+  //METODO ESPECIAL=====================================================================
   Future loadContacts() async {
     return contacts = await cHelper.getAllContacts() ??
         [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
@@ -62,7 +63,9 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showContactPage(context: context);
+          },
           child: Icon(
             Icons.add,
           ),
@@ -77,9 +80,26 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
       itemCount: contacts.length,
       itemBuilder: (context, index) {
-        return contactCard(context, index, contacts);
+        return contactCard(context, index, contacts, showContactPage);
       },
       padding: EdgeInsets.all(8.0),
     );
+  }
+
+  //METODOS=====================================================================
+  void showContactPage(
+      {required BuildContext context, Contact? contact}) async {
+    final recContact = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ContactPage(contact: contact),
+      ),
+    );
+    if (recContact != null) {
+      if (contact != null) {
+        await cHelper.updateContact(recContact);
+        loadContacts();
+      }
+    }
   }
 }
