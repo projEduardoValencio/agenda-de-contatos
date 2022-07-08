@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import '../helpers/contact_helper.dart';
 
 class Contact {
@@ -16,7 +14,12 @@ class Contact {
     required this.img,
   });
 
-  Contact.empty();
+  Contact.empty([
+    this.name = '',
+    this.email = '',
+    this.phone = '',
+    this.img = '',
+  ]);
 
   Contact.fromMap(Map map) {
     id = map[DataBaseColumns.idColumn];

@@ -1,3 +1,4 @@
+import 'package:agenda_de_contatos/src/views/contact_page.dart';
 import 'package:agenda_de_contatos/src/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -13,7 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: ContactPage(),
     );
   }
 }
