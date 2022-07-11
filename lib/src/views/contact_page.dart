@@ -191,31 +191,4 @@ class _ContactPageState extends State<ContactPage> {
       FocusScope.of(context).requestFocus(_nameFocus);
     }
   }
-
-  Future<bool> _requestPop() async {
-    final shouldPop = await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Voce tem certeza de que deseja sair?"),
-          content: Text("As alterações serão perdidas"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              child: Text("Yes"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: Text("No"),
-            ),
-          ],
-        );
-      },
-    );
-    return shouldPop!;
-  }
 }
