@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/contact_helper.dart';
 import '../models/contact_model.dart';
@@ -81,12 +82,17 @@ void _showOptions(BuildContext context, int index, List<Contact> contacts, Funct
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //Botao de ligar
                   personalFlatButton(
                     titulo: "Ligar",
                     cor: Colors.green,
                     size: 20.0,
-                    function: () {},
+                    function: () async {
+                      Navigator.pop(context);
+                      await launchUrl(Uri.parse("tel:${contacts[index].phone}"));
+                    },
                   ),
+                  //Botao de Editar
                   personalFlatButton(
                     titulo: "Editar",
                     cor: Colors.blue,
@@ -96,6 +102,7 @@ void _showOptions(BuildContext context, int index, List<Contact> contacts, Funct
                       showContactPage(context: context, contact: contacts[index]);
                     },
                   ),
+                  //Botao de Excluir
                   personalFlatButton(
                     titulo: "Excluir",
                     cor: Colors.red,

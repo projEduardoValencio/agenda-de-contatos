@@ -5,6 +5,7 @@ import 'package:agenda_de_contatos/src/models/contact_model.dart';
 import 'package:agenda_de_contatos/src/utils/paths.dart';
 import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContactPage extends StatefulWidget {
   ContactPage({Key? key, this.contact}) : super(key: key);
@@ -19,7 +20,7 @@ class _ContactPageState extends State<ContactPage> {
   //VARIAVEIS===============================================================
   late Contact _editedContact;
   bool _userEdited = false;
-
+  final ImagePicker picker = ImagePicker();
   //CONTROLADORES
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -172,6 +173,16 @@ class _ContactPageState extends State<ContactPage> {
           ),
         ),
       ),
+      onTap: () {
+        ImagePicker().pickImage(source: ImageSource.camera).then((value) {
+          if (value == null) {
+            return;
+          }
+          setState(() {
+            _editedContact.img = value!.path;
+          });
+        });
+      },
     );
   }
 

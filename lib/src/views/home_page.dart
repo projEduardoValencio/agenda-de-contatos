@@ -87,8 +87,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   //METODOS=====================================================================
-  Future<void> deleteAndSetState(Contact contact) async {
-    cHelper.deleteContact(contact.id!.toInt());
+  Future<void> deleteAndSetState(Contact? contact) async {
+    if (contact == null) {
+      List<Contact> l = await cHelper.getAllContacts() ?? [];
+      setState(() {
+        contacts = l;
+      });
+      return;
+    }
+    cHelper.deleteContact(contact!.id!.toInt());
     List<Contact> l = await cHelper.getAllContacts() ?? [];
     setState(() {
       contacts = l;
@@ -118,6 +125,10 @@ class _HomePageState extends State<HomePage> {
         loadAndSetState();
       }
     }
-    setState(() {});
+
+    List<Contact> l = await cHelper.getAllContacts() ?? [];
+    setState(() {
+      contacts = l;
+    });
   }
 }
