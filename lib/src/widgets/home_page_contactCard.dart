@@ -71,14 +71,6 @@ verifyImg(List<Contact> contacts, int index) {
   }
 }
 
-_imageIcon(List<Contact> contacts, int index) {
-  if (contacts[index].img.isNotEmpty) {
-    return AssetImage("assets/images/person.png");
-  } else {
-    return FileImage(File(contacts[index].img));
-  }
-}
-
 void _showOptions(BuildContext context, int index, List<Contact> contacts, Function showContactPage, Function update) {
   showModalBottomSheet(
       context: context,
