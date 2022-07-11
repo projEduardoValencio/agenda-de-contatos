@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/contact_helper.dart';
 import '../models/contact_model.dart';
+import '../utils/paths.dart';
 import '../views/contact_page.dart';
 
 //HELPPER INVOCATION============================================================
@@ -27,7 +28,7 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts, Func
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: _imageIcon(contacts, index),
+                  image: verifyImg(contacts, index),
                   fit: BoxFit.none,
                   scale: 11.0,
                 ),
@@ -62,8 +63,16 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts, Func
 
 // METODOS======================================================================
 
+verifyImg(List<Contact> contacts, int index) {
+  if (contacts[index].img.isEmpty) {
+    return AssetImage(PersonalPath.person);
+  } else {
+    return FileImage(File(contacts[index].img));
+  }
+}
+
 _imageIcon(List<Contact> contacts, int index) {
-  if (contacts[index].img != null || contacts[index].img.isNotEmpty) {
+  if (contacts[index].img.isNotEmpty) {
     return AssetImage("assets/images/person.png");
   } else {
     return FileImage(File(contacts[index].img));
