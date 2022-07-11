@@ -11,8 +11,7 @@ import '../views/contact_page.dart';
 ContatctHelper cHelper = ContatctHelper();
 
 //WIDGETS=======================================================================
-Widget contactCard(BuildContext context, int index, List<Contact> contacts,
-    Function showContactPage) {
+Widget contactCard(BuildContext context, int index, List<Contact> contacts, Function showContactPage, Function update) {
   return GestureDetector(
     child: Card(
       elevation: 2.0,
@@ -54,7 +53,8 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts,
       ),
     ),
     onTap: () {
-      showContactPage(context: context, contact: contacts[index]);
+      //showContactPage(context: context, contact: contacts[index]);
+      _showOptions(context, index, contacts, showContactPage, update);
     },
   );
 }
@@ -67,4 +67,68 @@ _imageIcon(List<Contact> contacts, int index) {
   } else {
     return FileImage(File(contacts[index].img));
   }
+}
+
+void _showOptions(BuildContext context, int index, List<Contact> contacts, Function showContactPage, Function update) {
+  showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return BottomSheet(
+          onClosing: () {},
+          builder: (context) {
+            return Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  personalFlatButton(
+                    titulo: "Ligar",
+                    cor: Colors.green,
+                    size: 20.0,
+                    function: () {},
+                  ),
+                  personalFlatButton(
+                    titulo: "Editar",
+                    cor: Colors.blue,
+                    size: 20.0,
+                    function: () {
+                      Navigator.pop(context);
+                      showContactPage(context: context, contact: contacts[index]);
+                    },
+                  ),
+                  personalFlatButton(
+                    titulo: "Excluir",
+                    cor: Colors.red,
+                    size: 20.0,
+                    function: () {
+                      Navigator.pop(context);
+                      cHelper.deleteContact(contacts[index].id!.toInt());
+                      update(contacts[index]);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      });
+}
+
+// WIDGETS ==============================================================================
+
+Widget personalFlatButton(
+    {required String titulo, required Color cor, required double size, required Function() function}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: TextButton(
+      onPressed: function,
+      child: Text(
+        titulo,
+        style: TextStyle(
+          color: cor,
+          fontSize: size,
+        ),
+      ),
+    ),
+  );
 }

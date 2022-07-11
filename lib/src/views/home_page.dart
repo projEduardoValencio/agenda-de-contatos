@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
 
   //METODO ESPECIAL=====================================================================
   Future loadContacts() async {
-    return contacts = await cHelper.getAllContacts() ??
-        [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
+    return contacts =
+        await cHelper.getAllContacts() ?? [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
   }
 
   //BUILDER=====================================================================
@@ -80,13 +80,21 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
       itemCount: contacts.length,
       itemBuilder: (context, index) {
-        return contactCard(context, index, contacts, showContactPage);
+        return contactCard(context, index, contacts, showContactPage, deleteAndSetState);
       },
       padding: EdgeInsets.all(8.0),
     );
   }
 
   //METODOS=====================================================================
+  Future<void> deleteAndSetState(Contact contact) async {
+    cHelper.deleteContact(contact.id!.toInt());
+    List<Contact> l = await cHelper.getAllContacts() ?? [];
+    setState(() {
+      contacts = l;
+    });
+  }
+
   Future<void> loadAndSetState() async {
     List<Contact> l = await cHelper.getAllContacts() ?? [];
     setState(() {
@@ -94,8 +102,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> showContactPage(
-      {required BuildContext context, Contact? contact}) async {
+  Future<void> showContactPage({required BuildContext context, Contact? contact}) async {
     final recContact = await Navigator.push(
       context,
       MaterialPageRoute(
