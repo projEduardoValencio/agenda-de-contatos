@@ -1,4 +1,4 @@
-<h1 style="text-align:center">Agenda de Contatos</h1>
+<h1 align="center" style="text-align:center">Agenda de Contatos</h1>
 
 <p style="text-align:center">Esta é uma aplicação com o intuito de treinar e desenvolver novas habilidade com Flutter.</p>
 
