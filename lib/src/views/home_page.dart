@@ -1,4 +1,5 @@
 import 'package:agenda_de_contatos/src/helpers/contact_helper.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:agenda_de_contatos/src/models/contact_model.dart';
 import 'package:agenda_de_contatos/src/views/contact_page.dart';
 import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
@@ -59,9 +60,16 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Contatos"),
+          title: Text("CONTATOS", style: GoogleFonts.inter(color: MyPersonalColors.cardColor,fontWeight:FontWeight.bold,fontSize: 20,),),
           backgroundColor: MyPersonalColors.primaria,
           centerTitle: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10.0),
+              bottomRight: Radius.circular(10.0),
+            ),
+          ),
+          toolbarHeight: 80,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -84,7 +92,7 @@ class _HomePageState extends State<HomePage> {
         return contactCard(
             context, index, contacts, showContactPage, deleteAndSetState);
       },
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(left: 13, right:13, top:20),
     );
   }
 
@@ -100,7 +108,7 @@ class _HomePageState extends State<HomePage> {
     cHelper.deleteContact(contact.id!.toInt());
     List<Contact> l = await cHelper.getAllContacts() ?? [];
     setState(() {
-contacts = l;
+      contacts = l;
     });
   }
 

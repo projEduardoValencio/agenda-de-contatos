@@ -1,6 +1,7 @@
 import 'package:agenda_de_contatos/src/views/contact_page.dart';
 import 'package:agenda_de_contatos/src/views/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -14,6 +15,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: GoogleFonts.inter().fontFamily,
+        ),
       home: HomePage(),
     );
   }
