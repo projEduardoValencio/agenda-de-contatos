@@ -1,16 +1,13 @@
-# agenda_de_contatos
+<h1 style="text-align:center">Agenda de Contatos</h1>
 
-A new Flutter project.
+<p style="text-align:center">Esta é uma aplicação com o intuito de treinar e desenvolver novas habilidade com Flutter.</p>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+**Preview**
+| Tela 1  | Tela 2   | Tela 3   |
+|-------------- | -------------- | -------------
+| ![t1](assets/preview/tela-1.png)     | ![t2](assets/preview/tela-2.png)    | ![t3](assets/preview/tela-3.png)|     
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
