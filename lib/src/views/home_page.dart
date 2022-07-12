@@ -2,6 +2,7 @@ import 'package:agenda_de_contatos/src/helpers/contact_helper.dart';
 import 'package:agenda_de_contatos/src/models/contact_model.dart';
 import 'package:agenda_de_contatos/src/views/contact_page.dart';
 import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
+import 'package:agenda_de_contatos/src/utils/personal_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,8 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   //METODO ESPECIAL=====================================================================
   Future loadContacts() async {
-    return contacts =
-        await cHelper.getAllContacts() ?? [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
+    return contacts = await cHelper.getAllContacts() ??
+        [Contact(name: 'name', email: 'email', phone: 'phone', img: 'img')];
   }
 
   //BUILDER=====================================================================
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           return homePageWidget();
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text("ERROR"),
           );
         } else {
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Contatos"),
-          backgroundColor: Colors.red,
+          backgroundColor: MyPersonalColors.primaria,
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
@@ -80,7 +81,8 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
       itemCount: contacts.length,
       itemBuilder: (context, index) {
-        return contactCard(context, index, contacts, showContactPage, deleteAndSetState);
+        return contactCard(
+            context, index, contacts, showContactPage, deleteAndSetState);
       },
       padding: EdgeInsets.all(8.0),
     );
@@ -95,10 +97,10 @@ class _HomePageState extends State<HomePage> {
       });
       return;
     }
-    cHelper.deleteContact(contact!.id!.toInt());
+    cHelper.deleteContact(contact.id!.toInt());
     List<Contact> l = await cHelper.getAllContacts() ?? [];
     setState(() {
-      contacts = l;
+contacts = l;
     });
   }
 
@@ -109,7 +111,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> showContactPage({required BuildContext context, Contact? contact}) async {
+  Future<void> showContactPage(
+      {required BuildContext context, Contact? contact}) async {
     final recContact = await Navigator.push(
       context,
       MaterialPageRoute(
