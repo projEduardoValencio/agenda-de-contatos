@@ -59,8 +59,17 @@ class _HomePageState extends State<HomePage> {
     print("heelo ");
     return SafeArea(
       child: Scaffold(
+        backgroundColor: MyPersonalColors.fundo,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
-          title: Text("CONTATOS", style: GoogleFonts.inter(color: MyPersonalColors.cardColor,fontWeight:FontWeight.bold,fontSize: 20,),),
+          title: Text(
+            "CONTATOS",
+            style: GoogleFonts.inter(
+              color: MyPersonalColors.cardColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
           backgroundColor: MyPersonalColors.primaria,
           centerTitle: true,
           shape: RoundedRectangleBorder(
@@ -70,6 +79,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           toolbarHeight: 80,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 23),
+              child: Icon(Icons.filter_list),
+            ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -78,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           child: Icon(
             Icons.add,
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: MyPersonalColors.vermelho,
         ),
         body: listContactBuilder(),
       ),
@@ -92,7 +107,7 @@ class _HomePageState extends State<HomePage> {
         return contactCard(
             context, index, contacts, showContactPage, deleteAndSetState);
       },
-      padding: EdgeInsets.only(left: 13, right:13, top:20),
+      padding: EdgeInsets.only(left: 13, right: 13, top: 20),
     );
   }
 
