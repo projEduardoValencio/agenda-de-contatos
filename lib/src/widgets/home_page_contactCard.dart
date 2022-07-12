@@ -18,6 +18,7 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts,
     Function showContactPage, Function update) {
   return GestureDetector(
     child: Card(
+      color: MyPersonalColors.cardColor,
       margin: EdgeInsets.only(bottom: 20),
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -33,7 +34,7 @@ Widget contactCard(BuildContext context, int index, List<Contact> contacts,
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: verifyImg(contacts, index),
-                fit: BoxFit.none,
+                fit: contacts[index].img.isEmpty ? BoxFit.none : BoxFit.cover,
                 scale: 11.0,
               ),
             ),
@@ -128,17 +129,17 @@ void _showOptions(BuildContext context, int index, List<Contact> contacts,
                         fontSize: 30.0),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 22,
                   ),
                   Text(
                     contacts[index].phone,
                     style: TextStyle(
                         color: MyPersonalColors.cinza,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20.0),
+                        fontSize: 25.0),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   Text(
                     contacts[index].email,
@@ -212,7 +213,7 @@ Widget personalFlatButton({
   required Function() function,
   required Icon icone,
 }) {
-  final double hmed = 80;
+  final double hmed = 85;
   final double wmed = 120;
   return Container(
     height: hmed,

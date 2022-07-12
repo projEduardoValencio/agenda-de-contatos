@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:agenda_de_contatos/main.dart';
 import 'package:agenda_de_contatos/src/models/contact_model.dart';
 import 'package:agenda_de_contatos/src/utils/paths.dart';
+import 'package:agenda_de_contatos/src/utils/personal_colors.dart';
 import 'package:agenda_de_contatos/src/widgets/home_page_contactCard.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,74 +84,150 @@ class _ContactPageState extends State<ContactPage> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text(_editedContact.name.isEmpty ? "Novo contato" : _editedContact.name),
+            title: Text(
+              _editedContact.name.isEmpty
+                  ? "Novo contato"
+                  : _editedContact.name,
+              style: TextStyle(
+                color: MyPersonalColors.cardColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
             centerTitle: true,
-            backgroundColor: Colors.red,
+            backgroundColor: MyPersonalColors.primaria,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
+              ),
+            ),
+            toolbarHeight: 80,
+            elevation: 6,
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => saveContact(),
             child: Icon(Icons.save),
             backgroundColor: Colors.red,
           ),
+          backgroundColor: MyPersonalColors.fundo,
           body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 15),
-                iconImage(),
-                SizedBox(height: 15),
-                //NOME
-                TextField(
-                  focusNode: _nameFocus,
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    labelText: "Nome",
-                  ),
-                  onChanged: (text) {
-                    _userEdited = true;
-                    setState(() {
-                      _editedContact.name = text;
-                    });
-                  },
-                  onSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_emailFocus);
-                  },
-                ),
-                //EMAIL
-                TextField(
-                  focusNode: _emailFocus,
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (text) {
-                    _userEdited = true;
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            child: Card(
+              color: MyPersonalColors.cardColor,
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(13.0),
+              ),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(right: 12, left: 12, top: 15, bottom: 50),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 15),
+                    iconImage(),
+                    SizedBox(height: 30),
+                    //NOME
+                    Container(
+                      height: 64,
+                      child: TextField(
+                        textAlignVertical: TextAlignVertical.center,
+                        focusNode: _nameFocus,
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          labelStyle: TextStyle(fontSize: 18),
+                        ),
+                        //estilo do texto
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: MyPersonalColors.primaria,
+                          fontSize: 24,
+                        ),
+                        onChanged: (text) {
+                          _userEdited = true;
+                          setState(() {
+                            _editedContact.name = text;
+                          });
+                        },
+                        onSubmitted: (_) {
+                          FocusScope.of(context).requestFocus(_emailFocus);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    //EMAIL
+                    Container(
+                      height: 64,
+                      child: TextField(
+                        focusNode: _emailFocus,
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          labelStyle: TextStyle(fontSize: 18),
+                        ),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: MyPersonalColors.cinza,
+                          fontSize: 20,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (text) {
+                          _userEdited = true;
 
-                    _editedContact.email = text;
-                  },
-                  onSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_phoneFocus);
-                  },
-                ),
-                //PHONE
-                TextField(
-                  focusNode: _phoneFocus,
-                  controller: _phoneController,
-                  decoration: InputDecoration(
-                    labelText: "Phone",
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    _userEdited = true;
+                          _editedContact.email = text;
+                        },
+                        onSubmitted: (_) {
+                          FocusScope.of(context).requestFocus(_phoneFocus);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    //PHONE
+                    Container(
+                      height: 64,
+                      child: TextField(
+                        focusNode: _phoneFocus,
+                        controller: _phoneController,
+                        decoration: InputDecoration(
+                          labelText: "Phone",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          labelStyle: TextStyle(fontSize: 18),
+                        ),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: MyPersonalColors.cinza,
+                          fontSize: 20,
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (text) {
+                          _userEdited = true;
 
-                    _editedContact.phone = text;
-                  },
-                  onSubmitted: (_) => saveContact(),
+                          _editedContact.phone = text;
+                        },
+                        onSubmitted: (_) => saveContact(),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -162,24 +239,24 @@ class _ContactPageState extends State<ContactPage> {
   GestureDetector iconImage() {
     return GestureDetector(
       child: Container(
-        width: 140.0,
-        height: 140.0,
+        width: 160.0,
+        height: 160.0,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
             image: verifyImg(),
-            fit: BoxFit.none,
+            fit: _editedContact.img.isEmpty ? BoxFit.none : BoxFit.cover,
             scale: 4.0,
           ),
         ),
       ),
       onTap: () {
-        ImagePicker().pickImage(source: ImageSource.camera).then((value) {
+        ImagePicker().pickImage(source: ImageSource.gallery).then((value) {
           if (value == null) {
             return;
           }
           setState(() {
-            _editedContact.img = value!.path;
+            _editedContact.img = value.path;
           });
         });
       },
